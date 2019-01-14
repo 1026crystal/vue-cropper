@@ -22,7 +22,8 @@ components: {
 
 ### 功能
 名称|功能|默认值|可选值
---|:--:|:--:|--:
+--|:--:|:--:|:--:
+img|裁剪图片的地址|空|url 地址 || base64 || blob
 outputSize|裁剪生成图片的质量|1|0.1 - 1
 outputType|裁剪生成图片的格式|jpg (jpg 需要传入jpeg)|jpeg || png || webp
 info|裁剪框的大小信息|true|true || false

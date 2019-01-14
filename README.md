@@ -22,9 +22,8 @@ components: {
 
 ### 功能
 名称|功能|默认值|可选值
---|:--:|--:|--:
+--|:--:|:--:|--:
 outputSize|裁剪生成图片的质量|1|0.1 - 1
-
 outputType|裁剪生成图片的格式|jpg (jpg 需要传入jpeg)|jpeg || png || webp
 info|裁剪框的大小信息|true|true || false
 canScale|图片是否允许滚轮缩放|true|true || false

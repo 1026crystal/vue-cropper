@@ -11,8 +11,8 @@ yarn add vue-cropper
 1、全局引入
 main.js里面使用
 import VueCropper from 'vue-cropper' 
-
 Vue.use(VueCropper)
+
 2、组件内按需引入
 import { VueCropper }  from 'vue-cropper' 
 components: {
@@ -44,3 +44,85 @@ infoTrue|true 为展示真实输出图片宽高 false 展示看到的截图框�
 maxImgSize|限制图片最大宽度和高度|2000|0-max
 enlarge|图片根据截图框输出比例倍数|1|0-max(建议不要太大不然会卡死的呢)
 mode|图片默认渲染方式|contain|contain , cover, 100px, 100% auto
+
+### 内置方法(通过this.$refs.cropper 调用)
+```
+this.$refs.cropper.startCrop() 开始截图
+this.$refs.cropper.stopCrop() 停止截图
+this.$refs.cropper.clearCrop() 清除截图
+this.$refs.cropper.changeScale() 修改图片大小 正数为变大 负数变小
+this.$refs.cropper.getImgAxis() 获取图片基于容器的坐标点
+this.$refs.cropper.getCropAxis() 获取截图框基于容器的坐标点
+this.$refs.cropper.goAutoCrop 自动生成截图框函数
+this.$refs.cropper.rotateRight() 向右边旋转90度
+this.$refs.cropper.rotateLeft() 向左边旋转90度
+
+图片加载的回调 imgLoad 返回结果success, error
+```
+### 获取截图信息
+
+this.$refs.cropper.cropW 截图框宽度
+this.$refs.cropper.cropH 截图框高度
+```
+// 获取截图的base64 数据
+this.$refs.cropper.getCropData((data) => {
+  // do something
+  console.log(data)  
+})
+
+// 获取截图的blob数据
+this.$refs.cropper.getCropBlob((data) => {
+  // do something
+  console.log(data)  
+})
+```
+### 预览
+```
+// html
+@realTime="realTime"
+
+// methods
+realTime(data) {
+  var previews = data;
+  var h = 0.5;
+  var w = 0.2;
+
+  this.previewStyle1 = {
+    width: previews.w + "px",
+    height: previews.h + "px",
+    overflow: "hidden",
+    margin: "0",
+    zoom: h
+  };
+
+  this.previewStyle2 = {
+    width: previews.w + "px",
+    height: previews.h + "px",
+    overflow: "hidden",
+    margin: "0",
+    zoom: w
+  };
+  this.previews = data;
+}
+
+// template
+<div class="show-preview" :style="{'width': previews.w + 'px', 'height': previews.h + 'px',  'overflow': 'hidden',
+    'margin': '5px'}">
+  <div :style="previews.div">
+    <img :src="option.img" :style="previews.img">
+  </div>
+</div>
+<p>中等大小</p>
+<div :style="previewStyle1"> 
+  <div :style="previews.div">
+    <img :src="previews.url" :style="previews.img">
+  </div>
+</div>
+
+<p>迷你大小</p>
+<div :style="previewStyle2"> 
+  <div :style="previews.div">
+    <img :src="previews.url" :style="previews.img">
+  </div>
+</div>
+```
